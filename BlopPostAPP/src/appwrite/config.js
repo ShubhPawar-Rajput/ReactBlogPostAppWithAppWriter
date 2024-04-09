@@ -11,7 +11,7 @@ export class Service {
       .setEndpoint(conf.appwriteUrl)
       .setProject(conf.appwriteProjectId);
     this.databases = new Databases(this.client);
-    this.bucket = new Databases(this.client);
+    this.bucket = new Storage(this.client);
   }
 
   async createPost({ title, slug, content, featuredImage, status, userId }) {
@@ -94,6 +94,20 @@ export class Service {
       return false;
     }
     return null;
+  }
+
+  //file upload service
+  async uploadFile(file) {
+    try {
+      return await this.bucket.createFile(
+        conf.appwriteBuckettId,
+        ID.unique(),
+        file
+      );
+    } catch (error) {
+      console.log("appwrite upload file  error :: ", error);
+      return false;
+    }
   }
 }
 
