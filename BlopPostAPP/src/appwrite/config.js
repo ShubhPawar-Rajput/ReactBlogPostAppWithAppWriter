@@ -110,6 +110,7 @@ export class Service {
     }
   }
 
+  //file delete service
   async deleteFile(fileId) {
     try {
       return this.bucket.deleteFile(conf.appwriteBuckettId, fileId);
@@ -117,6 +118,11 @@ export class Service {
       console.log("appwrite delete file error :: ", error);
       return false;
     }
+  }
+
+  //file preview service
+  getFilePreview(fileId) {
+    return this.bucket.getFilePreview(conf.appwriteBuckettId, fileId);
   }
 }
 
